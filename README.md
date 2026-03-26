@@ -1,43 +1,43 @@
-# DigitalShop
+# TukoKadi - We Have The Card
 
-A digital goods marketplace built with Django and Bootstrap 5. Features an orange and white theme.
+An informational and awareness website for the **TukoKadi** movement — Kenya's Gen Z voter registration revolution.
+
+## About
+
+TukoKadi ("We Have the Card" in Sheng) is a citizen-led, youth-driven mass voter registration movement that began in March 2026. Founded by photojournalist Ademba Allans, the movement has mobilized thousands of young Kenyans to register as voters ahead of the 2027 General Election.
 
 ## Features
 
-- **User Authentication**: Sign up, login, logout
-- **Product Catalog**: Browse digital products organized by category groups (Software, Gaming, Education, Media)
-- **Shopping Cart**: Add/remove products, view cart total
-- **Checkout**: Purchase items using account balance
-- **Balance System**: Top up account balance
-- **Order History**: View past orders with details
-- **Transaction Log**: Track all top-ups and purchases
-- **Admin Panel**: Full Django admin for managing products, categories, users, and orders
+- Hero section with movement overview
+- Real timeline of key movement milestones
+- Movement leaders profiles (Ademba Allans, Sophie Njehia, Hanifa)
+- Impact statistics and information
+- Media section with press coverage links
+- Get involved / social sharing tools
+- Support section
+- Fully responsive design with red, green, and black color scheme
+- Scroll reveal animations
+
+## Tech Stack
+
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- Lucide Icons
 
 ## Quick Start
 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Run migrations
-python manage.py migrate
-
-# Seed sample data
-python manage.py seed_data
-
-# Create a superuser (optional, for admin access)
-python manage.py createsuperuser
-
-# Start the server
-python manage.py runserver
+npm install
+npm run dev
 ```
 
-Then visit http://localhost:8000/ to use the app.
+Then visit http://localhost:5173/ to view the site.
 
-## Admin
+## Build
 
-Access the Django admin at http://localhost:8000/admin/ to manage:
-- Category Groups & Categories
-- Products
-- User Profiles & Balances
-- Orders & Transactions
+```bash
+npm run build
+```
+
+Build output goes to the `dist/` directory.
