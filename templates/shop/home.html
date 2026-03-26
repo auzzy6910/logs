@@ -1,0 +1,22 @@
+{% extends "shop/base_with_sidebar.html" %}
+{% block title %}DigitalShop{% endblock %}
+
+{% block main_content %}
+<div class="welcome-section">
+    <h1>WELCOME TO DIGITALSHOP</h1>
+    <h2>Your Trusted Digital Marketplace</h2>
+    <a href="{% url 'categories' %}" class="btn btn-primary btn-lg">Browse Products</a>
+</div>
+
+<div class="rules-section">
+    <h3>Shop Rules & Information</h3>
+    <ul>
+        <li>All products are digital goods delivered instantly after purchase.</li>
+        <li>Please review product descriptions carefully before buying.</li>
+        <li>Top up your account balance before making purchases.</li>
+        <li>All sales are final. Please contact support for any issues.</li>
+        <li>Prices are in USD.</li>
+        <li>Browse categories using the sidebar or the Shop link above.</li>
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 sidebar">
+            {% for group in sidebar_groups %}
+            <a href="{% url 'categories' %}?group={{ group.slug }}">{{ group.name }}</a>
+            {% endfor %}
+        </div>
+        <div class="col-md-10 main-content">
+            {% block main_content %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
