@@ -388,11 +388,123 @@ body {
     vertical-align: -0.125em;
 }
 
+/* Product Cards */
+.product-card {
+    background-color: #333333;
+    border: 1px solid #444;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    border-color: #FF6B00;
+}
+
+.product-card .card-title {
+    color: #FF6B00;
+    font-weight: 600;
+}
+
+.price-tag {
+    color: #FF6B00;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Featured Section */
+.featured-section {
+    margin: 2rem 0;
+}
+
+.section-heading {
+    color: #FF6B00;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+/* Product Detail */
+.product-detail-card {
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 2rem;
+}
+
+.product-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #ccc;
+}
+
+/* Profile */
+.card .text-muted {
+    color: #aaa !important;
+}
+
+/* Search Form in Navbar */
+.navbar .form-control-sm {
+    background-color: #444;
+    border: 1px solid #555;
+    color: #fff;
+    min-width: 200px;
+}
+
+.navbar .form-control-sm::placeholder {
+    color: #999;
+}
+
+.navbar .form-control-sm:focus {
+    background-color: #555;
+    border-color: #FF6B00;
+    color: #fff;
+}
+
+/* Back Button */
+.btn-outline-light {
+    border-color: #666;
+    color: #ccc;
+}
+
+.btn-outline-light:hover {
+    background-color: #444;
+    border-color: #FF6B00;
+    color: #FF6B00;
+}
+
+/* Pagination */
+.pagination .page-link {
+    background-color: #333;
+    border-color: #555;
+    color: #fff;
+}
+
+.pagination .page-link:hover {
+    background-color: #FF6B00;
+    border-color: #FF6B00;
+    color: #fff;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #FF6B00;
+    border-color: #FF6B00;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #222;
+    border-color: #444;
+    color: #666;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .sidebar {
         min-height: auto;
         border-right: none;
         border-bottom: 1px solid #444;
+    }
+
+    .navbar .form-control-sm {
+        min-width: 120px;
     }
 }

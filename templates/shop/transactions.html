@@ -37,4 +37,8 @@
         {% endfor %}
     </tbody>
 </table>
+
+{% with page_obj=transactions %}
+{% include "shop/includes/pagination.html" %}
+{% endwith %}
 {% endblock %}
