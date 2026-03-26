@@ -1,0 +1,50 @@
+{% extends "shop/base_with_sidebar.html" %}
+{% block title %}{{ product.name }} | DigitalShop{% endblock %}
+
+{% block main_content %}
+<div class="mb-3">
+    <a href="{% url 'category_detail' product.category.id %}" class="btn btn-sm btn-outline-light">&larr; Back to {{ product.category.name }}</a>
+</div>
+
+<div class="product-detail-card">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="page-title text-start">{{ product.name }}</h1>
+            <p class="text-muted mb-2">
+                <span class="badge bg-secondary">{{ product.category.name }}</span>
+                <span class="badge bg-secondary">{{ product.category.group.name }}</span>
+            </p>
+            <p class="product-description mt-3">{{ product.description }}</p>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2 class="price-tag mb-3">${{ product.price }}</h2>
+                    {% if product.is_available %}
+                        {% if in_cart %}
+                        <a href="{% url 'cart' %}" class="btn btn-success btn-lg w-100 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check" viewBox="0 0 16 16">
+                                <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                            </svg>
+                            In Cart - View Cart
+                        </a>
+                        {% else %}
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary btn-lg w-100 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                            </svg>
+                            Add to Cart
+                        </a>
+                        {% endif %}
+                        <p class="text-success small mt-2">Available</p>
+                    {% else %}
+                        <p class="text-danger">Sold Out</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Q
 
@@ -52,7 +53,10 @@ def logout_view(request):
 def home_view(request):
     if not hasattr(request.user, 'profile'):
         UserProfile.objects.create(user=request.user)
-    return render(request, 'shop/home.html')
+    featured_products = Product.objects.filter(is_available=True).order_by('-created_at')[:8]
+    return render(request, 'shop/home.html', {
+        'featured_products': featured_products,
+    })
 
 
 @login_required
@@ -60,12 +64,16 @@ def categories_view(request):
     if not hasattr(request.user, 'profile'):
         UserProfile.objects.create(user=request.user)
     query = request.GET.get('q', '')
+    group_slug = request.GET.get('group', '')
     groups = CategoryGroup.objects.prefetch_related('categories').all()
+    if group_slug:
+        groups = groups.filter(slug=group_slug)
     if query:
         groups = groups.filter(categories__name__icontains=query).distinct()
     return render(request, 'shop/categories.html', {
         'groups': groups,
         'query': query,
+        'selected_group': group_slug,
     })
 
 
@@ -164,7 +172,10 @@ def checkout_view(request):
 def my_orders_view(request):
     if not hasattr(request.user, 'profile'):
         UserProfile.objects.create(user=request.user)
-    orders = Order.objects.filter(user=request.user)
+    orders_list = Order.objects.filter(user=request.user)
+    paginator = Paginator(orders_list, 20)
+    page_number = request.GET.get('page')
+    orders = paginator.get_page(page_number)
     return render(request, 'shop/my_orders.html', {'orders': orders})
 
 
@@ -178,7 +189,10 @@ def order_detail_view(request, order_id):
 def transactions_view(request):
     if not hasattr(request.user, 'profile'):
         UserProfile.objects.create(user=request.user)
-    transactions = Transaction.objects.filter(user=request.user)
+    transactions_list = Transaction.objects.filter(user=request.user)
+    paginator = Paginator(transactions_list, 20)
+    page_number = request.GET.get('page')
+    transactions = paginator.get_page(page_number)
     return render(request, 'shop/transactions.html', {'transactions': transactions})
 
 
@@ -213,3 +227,48 @@ def topup_view(request):
             messages.error(request, 'Please enter a valid amount.')
 
     return render(request, 'shop/topup.html')
+
+
+@login_required
+def product_detail_view(request, product_id):
+    if not hasattr(request.user, 'profile'):
+        UserProfile.objects.create(user=request.user)
+    product = get_object_or_404(Product, id=product_id)
+    in_cart = CartItem.objects.filter(user=request.user, product=product).exists()
+    return render(request, 'shop/product_detail.html', {
+        'product': product,
+        'in_cart': in_cart,
+    })
+
+
+@login_required
+def profile_view(request):
+    if not hasattr(request.user, 'profile'):
+        UserProfile.objects.create(user=request.user)
+    profile = request.user.profile
+    total_orders = Order.objects.filter(user=request.user).count()
+    total_spent = sum(
+        order.total_price for order in Order.objects.filter(user=request.user)
+    )
+    return render(request, 'shop/profile.html', {
+        'profile': profile,
+        'total_orders': total_orders,
+        'total_spent': total_spent,
+    })
+
+
+@login_required
+def search_view(request):
+    if not hasattr(request.user, 'profile'):
+        UserProfile.objects.create(user=request.user)
+    query = request.GET.get('q', '')
+    products = Product.objects.none()
+    if query:
+        products = Product.objects.filter(
+            Q(name__icontains=query) | Q(description__icontains=query),
+            is_available=True,
+        ).select_related('category')
+    return render(request, 'shop/search.html', {
+        'query': query,
+        'products': products,
+    })

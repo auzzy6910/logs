@@ -1,0 +1,66 @@
+{% extends "shop/base_with_sidebar.html" %}
+{% block title %}My Profile | DigitalShop{% endblock %}
+
+{% block main_content %}
+<h1 class="page-title">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+    </svg>
+    My Profile
+</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #FF6B00;">Account Information</h5>
+                <table class="table table-borderless mb-0">
+                    <tr>
+                        <td class="fw-bold" style="width: 40%;">Username</td>
+                        <td>{{ user.username }}</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Email</td>
+                        <td>{{ user.email|default:"Not set" }}</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Member Since</td>
+                        <td>{{ user.date_joined|date:"M d, Y" }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h6 class="text-muted">Balance</h6>
+                        <h3 style="color: #FF6B00;">${{ profile.balance }}</h3>
+                        <a href="{% url 'topup' %}" class="btn btn-sm btn-primary mt-2">Top Up</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h6 class="text-muted">Total Orders</h6>
+                        <h3 style="color: #FF6B00;">{{ total_orders }}</h3>
+                        <a href="{% url 'my_orders' %}" class="btn btn-sm btn-primary mt-2">View Orders</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h6 class="text-muted">Total Spent</h6>
+                        <h3 style="color: #FF6B00;">${{ total_spent }}</h3>
+                        <a href="{% url 'transactions' %}" class="btn btn-sm btn-primary mt-2">Transactions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

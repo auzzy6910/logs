@@ -21,14 +21,18 @@
                     Shop
                 </a>
             </div>
+            <form class="d-flex me-3" method="get" action="{% url 'search' %}">
+                <input type="text" name="q" class="form-control form-control-sm me-2" placeholder="Search products..." value="{{ request.GET.q|default:'' }}">
+                <button type="submit" class="btn btn-sm btn-primary">Search</button>
+            </form>
             <div class="d-flex align-items-center">
                 <span class="balance-display">Balance: ${{ user_balance }}</span>
                 <div class="dropdown me-3">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Menu</a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><span class="dropdown-item-text text-white">Profile: {{ user.username }}</span></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{% url 'my_orders' %}">My Orders</a></li>
+                                <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'my_orders' %}">My Orders</a></li>
                         <li><a class="dropdown-item" href="{% url 'transactions' %}">Transactions</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{% url 'topup' %}">Top up</a></li>
@@ -65,7 +69,7 @@
     {% block content %}{% endblock %}
 
     <footer class="footer">
-        <p>Copyright &copy; 2024 DigitalShop</p>
+        <p>Copyright &copy; 2026 DigitalShop</p>
     </footer>
 
     <script src="{% static 'js/jquery.min.js' %}"></script>
